@@ -15,7 +15,8 @@ problematic.  Also includes reporting of the RaspBerry PI CPU Temperature.
     http://abyz.co.uk/rpi/pigpio/code/DHTXXD.zip
 4. Apply this patch to test_DHTXXD.
 
-```diff test_DHTXXD.c orig/test_DHTXXD.c
+```
+diff test_DHTXXD.c orig/test_DHTXXD.c
 128c128
 <    printf("%d %.1f C %.1f %%\n", r.status, r.temperature, r.humidity);
 ---
