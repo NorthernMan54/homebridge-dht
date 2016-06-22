@@ -25,8 +25,8 @@ diff test_DHTXXD.c orig/test_DHTXXD.c
 <    } else {
 < 	fprintf(stderr, "ERROR: pigpiod not running\n");
 < 	return 1;
-
 ```
+
     This adds units to the response, and adds an error when pigpiod is not running.
 5. Compile with this command
     ```gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
