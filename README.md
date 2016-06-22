@@ -13,7 +13,8 @@ problematic.  Also includes reporting of the RaspBerry PI CPU Temperature.
     sudo apt-get install pigpio python-pigpio python3-pigpio
 3. Download the DHT22 Sample program from here
     http://abyz.co.uk/rpi/pigpio/code/DHTXXD.zip
-4. Apply this patch to test_DHTXXD.
+4. Apply this patch to test_DHTXXD.  This adds units to the response, and adds
+   an error when pigpiod is not running.
 
 ```
 diff test_DHTXXD.c orig/test_DHTXXD.c
@@ -27,15 +28,18 @@ diff test_DHTXXD.c orig/test_DHTXXD.c
 < 	return 1;
 ```
 
-    This adds units to the response, and adds an error when pigpiod is not running.
 5. Compile with this command
-    ```gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
-    ```
+
+```
+gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
+```
+
 6. Copy DHTXXD to /usr/local/bin/dht22, and make executable.
 7. Follow one of the numerous guides to wire up a DHT22 to a Raspberry PI.
-    Default GPIO pin to connect to is GPIO4
+   Default GPIO pin to connect to is GPIO4
 8. Install homebridge-dht using: npm install -g homebridge-dht
 9. Create a file in /usr/local/bin/cputemp containing
+
 ```
 #!/bin/bash
 cpuTemp0=$(cat /sys/class/thermal/thermal_zone0/temp)
