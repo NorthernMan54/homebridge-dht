@@ -81,7 +81,7 @@ DhtAccessory.prototype = {
         var informationService = new Service.AccessoryInformation();
 
         informationService
-            .setCharacteristic(Characteristic.Manufacturer, "Dht Manufacturer")
+            .setCharacteristic(Characteristic.Manufacturer, "AOSONG")
             .setCharacteristic(Characteristic.Model, this.service)
             .setCharacteristic(Characteristic.SerialNumber, this.device);
 
