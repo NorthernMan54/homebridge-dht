@@ -1,0 +1,111 @@
+{
+    "bridge": {
+        "name": "Heyu",
+        "username": "CC:22:3D:E3:CE:33",
+        "port": 51826,
+        "pin": "031-45-154"
+    },
+
+    "description": "HomeBridge Heyu Status Control",
+
+    "accessories": [{
+        "accessory": "Heyu",
+        "name": "All Devices",
+        "device": "a",
+        "on_command": "allon",
+        "off_command": "alloff",
+        "statusHandling": "no",
+        "service": "Switch"
+    }, {
+        "accessory": "Heyu",
+        "name": "All Lights",
+        "device": "a",
+        "on_command": "lightson",
+        "off_command": "lightsoff",
+        "statusHandling": "no",
+        "service": "Switch"
+    }, {
+        "accessory": "Heyu",
+        "name": "Front Door Lights",
+        "device": "a1",
+        "service": "Light",
+        "dimmable": "yes"
+    }, {
+        "accessory": "Heyu",
+        "name": "Walkway Lights",
+        "device": "a2",
+        "service": "Switch"
+    }, {
+        "accessory": "Heyu",
+        "name": "Side Door Lights",
+        "device": "a3",
+        "service": "Light",
+        "dimmable": "yes"
+    }, {
+        "accessory": "Heyu",
+        "name": "Back Door Lights",
+        "device": "a4",
+        "service": "Light",
+        "dimmable": "yes"
+
+    }, {
+        "accessory": "Heyu",
+        "name": "Family Room Lights",
+        "device": "a5",
+        "service": "Light",
+        "dimmable": "yes"
+    }, {
+        "accessory": "Heyu",
+        "name": "Floor lamp",
+        "device": "a6",
+        "service": "Light",
+        "dimmable": "yes"
+
+    }, {
+        "accessory": "Heyu",
+        "name": "Fish tank",
+        "device": "a7",
+        "service": "Switch"
+
+    }, {
+        "accessory": "Heyu",
+        "name": "Master Left",
+        "device": "a11",
+        "service": "Light",
+        "dimmable": "yes"
+
+    }, {
+        "accessory": "Heyu",
+        "name": "Master Right",
+        "device": "a12",
+        "service": "Light",
+        "dimmable": "yes"
+
+    }, {
+        "accessory": "Heyu",
+        "name": "Living Room Lamp",
+        "device": "a13",
+        "service": "Light",
+        "dimmable": "yes"
+
+    }, {
+        "accessory": "Heyu",
+        "name": "Staircase Lamp",
+        "device": "a14",
+        "service": "Light",
+        "dimmable": "no"
+
+    }, {
+        "accessory": "Heyu",
+        "name": "Powder Room",
+        "device": "a15",
+        "service": "Light",
+        "dimmable": "yes"
+
+    }, {
+        "accessory": "Heyu",
+        "name": "Garage Outlet",
+        "device": "a16",
+        "service": "Switch"
+    }]
+}
