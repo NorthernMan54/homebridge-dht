@@ -1,42 +1,32 @@
 {
-  "name": "homebridge-heyu",
-  "version": "0.2.1",
-  "description": "X10/Heyu plugin for HomeBridge",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NorthernMan54/homebridge-heyu.git"
-  },
-  "keywords": [
-    "x10",
-    "heyu",
-    "homebridge",
-    "homebridge-plugin"
-  ],
-  "engines": {
-    "node": ">=0.12.0",
-    "homebridge": ">=0.2.0"
-  },
-  "dependencies": {
-    "request": "^2.65.0",
-    "polling-to-event": ">=2.0.2"
-  },
-  "author": {
-    "name": "NorthernMan54"
-  },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/NorthernMan54/homebridge-heyu/issues"
-  },
-  "homepage": "https://github.com/NorthernMan54/homebridge-heyu#readme",
-  "readme": "# homebridge-heyu\n\nSupports X10 devices via heyu on the HomeBridge Platform. Tested with a CM11A Module connected via a USB Serial adapter.\n\n# Installation\n\n1. Install homebridge using: npm install -g homebridge\n2. Install homebridge-heyu using: npm install -g homebridge-heyu\n3. Update your configuration file. See sample-config.json in this repository for a sample.\n4. Assumes heyu is installed in /usr/local/bin/heyu, and already configured and running\n5. Homebridge must run under the same id as heyu\n\n# Configuration\n\n```\n\"accessories\": [\n  { \"accessory\":              \"Heyu\",\n        \"name\":               \"All Devices\",    // Alias for the allon/alloff command\n        \"device\":             \"a\",              // House code A\n        \"on_command\":         \"allon\",          // heyu command\n        \"off_command\":        \"alloff\",         // heyu command\n        \"statusHandling\":     \"no\",             // Device does not supply status\n        \"service\":            \"Switch\"\n       },\n  { \"accessory\": \"Heyu\",\n        \"name\":               \"All Lights\",\n        \"device\":             \"a\",\n        \"on_command\":         \"lightson\",\n        \"off_command\":        \"lightsoff\",\n        \"statusHandling\":     \"no\",\n        \"service\":    \t      \"Switch\"\n       },\n  { \"accessory\": \"Heyu\",\n        \"name\":         \t    \"Front Door Lights\",\n        \"device\":             \"a1\",                   // X10 device\n      \t\"service\":        \t  \"Light\",                // Lights may be dimmed\n        \"dimmable\":           \"yes\"                   // Device is dimmable\n       },\n        { \"accessory\": \"Heyu\",                                                  \n        \"name\":               \"Walkway Lights\",         \n        \"device\":             \"a2\",\n        \"service\":            \"Switch\"        // Switches are not dimmable\n       },\n\n    ]\n```\n\n# ToDo\n\nSetup monitoring of events from X10 Remotes and 2 way devices\n",
-  "readmeFilename": "README.md",
-  "gitHead": "edc6d0c306d4cb5018af5226bd12cc9cc0c8e835",
-  "_id": "homebridge-heyu@0.2.1",
-  "_shasum": "e493cb9c9ee63558b9f876c8dbb7cfda686fb22c",
-  "_from": "homebridge-heyu",
-  "_resolved": "file:homebridge-heyu"
+    "name": "homebridge-dht",
+    "version": "0.0.0",
+    "description": "Homebridge accessory plugin that support's connecting a dht22 Temperature/Humidity Sensor to a Raspberry PI.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/NorthernMan54/homebridge-dht.git"
+    },
+    "keywords": [
+        "nodemcu",
+        "dht22",
+        "homebridge",
+        "homebridge-plugin"
+    ],
+    "engines": {
+        "node": ">=0.12.0",
+        "homebridge": ">=0.2.0"
+    },
+    "dependencies": {
+
+    },
+    "author": "NorthernMan54",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/NorthernMan54/homebridge-dht/issues"
+    },
+    "homepage": "https://github.com/NorthernMan54/homebridge-dht#readme"
 }
