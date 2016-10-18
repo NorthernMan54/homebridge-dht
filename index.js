@@ -1,3 +1,39 @@
+// Homebridge plugin to reading DHT22 Sensor on a Raspberry PI.  Assumes DHT22
+// is connected to GPIO 4 by default.
+
+// Uses pigpio library to access gpio pin, and a custom program dht22 read the sensor.
+
+//"accessories": [{
+//    "accessory": "Dht",
+//    "name": "cputemp",
+//    "service": "Temperature"
+//}, {
+//    "accessory": "Dht",
+//    "name": "Temp/Humidity Sensor",
+//    "service": "dht22"
+//}]
+//
+// or Multiple
+//
+//"accessories": [{
+//    "accessory": "Dht",
+//    "name": "cputemp",
+//    "service": "Temperature"
+//}, {
+//    "accessory": "Dht",
+//    "name": "Temp/Humidity Sensor - Indoor",
+//    "service": "dht22",
+//    "gpio": "4"
+//}, {
+//    "accessory": "Dht",
+//    "name": "Temp/Humidity Sensor - Outdoor",
+//    "service": "dht22",
+//    "gpio": "5"
+//}]
+
+
+
+
 var Service, Characteristic;
 var exec = require('child_process').execFile;
 var cputemp, dhtExec;
@@ -13,18 +49,19 @@ function DhtAccessory(log, config) {
     this.log = log;
 
     this.config = config;
-    this.name = config["name"];
-    this.service = config["service"];
+    this.name = config.name;
+    this.service = config.service;
+    this.gpio = config.gpio || "4";
 
     dhtExec = config.dhtExec || "dht22";
     cputemp = config.cputemp || "cputemp";
-    var that = this;
+
 }
 
 DhtAccessory.prototype = {
 
     getDHTTemperature: function(callback) {
-        exec(dhtExec, function(error, responseBody, stderr) {
+        exec(dhtExec, ['-g', this.gpio], function(error, responseBody, stderr) {
             if (error !== null) {
                 this.log('dhtExec function failed: ' + error);
                 callback(error);
@@ -71,8 +108,6 @@ DhtAccessory.prototype = {
     },
 
     getServices: function() {
-
-        var that = this;
 
         this.log("INIT: %s", this.name);
 

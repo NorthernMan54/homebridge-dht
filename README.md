@@ -3,7 +3,9 @@
 Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity
 Sensor into hombridge via the pigpio library on a Raspberry PI.   I have tried
 numerous other interface methods for the DHT22, and found that this was least
-problematic.  Also includes reporting of the RaspBerry PI CPU Temperature.
+problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.
+
+Also support use of multiple DHT22's, see config.json fragment.
 
 # Installation
 
@@ -52,6 +54,18 @@ echo $cpuTemp1" C"
 ```
 
 10. Update your configuration file. See sample-config.json in this repository for a sample.
+Optional parameters includes
+
+* dhtExec - Full command including path to read dht22 sensor.  Not needed
+unless dht22 is installed in a location not on the path.  Defaults to dht22
+ie "dhtExec": "/usr/local/bin/dht22"
+
+* cputemp - Full command including path to read cpu temp sensor.  Not needed
+unless cputemp is installed in a location not on the path.  Defaults to cputemp
+ie "cputemp": "/usr/local/bin/cputemp"
+
+* gpio - Gpio pin to read for dht22 sensor.  Defaults to 4
+ie "gpio": "4"
 
 
 # Configuration
@@ -81,6 +95,17 @@ echo $cpuTemp1" C"
 
 
 }
+
+or with multiple DHT22's
+{ "accessory":   "Dht",
+  "name":        "Temp/Humidity Sensor - Indoor",
+  "gpio":        "4",       
+  "service":     "dht22" },
+{ "accessory":   "Dht",
+  "name":        "Temp/Humidity Sensor - Outdoor",
+  "gpio":        "5",   
+  "service":     "dht22" }
+
 ```
 
 # ToDo
