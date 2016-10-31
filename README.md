@@ -10,37 +10,30 @@ Also support use of multiple DHT22's, see config.json fragment.
 # Installation
 
 1. Install homebridge using: npm install -g homebridge
-2. Install the pigpiod library via these commands
+2. Install homebridge-dht using: npm install -g homebridge-dht
+3. Install the pigpiod library via these commands
     sudo apt-get update
     sudo apt-get install pigpio python-pigpio python3-pigpio
-3. Download the DHT22 Sample program from here
+4. Download the DHT22 Sample program from here
     http://abyz.co.uk/rpi/pigpio/code/DHTXXD.zip
-4. Apply this patch to test_DHTXXD.  This adds units to the response, and adds
-   an error when pigpiod is not running.
+5. Copy the patch file `test_DHTXXD.patch` from /usr/local/lib/node_modules/node_modules/homebridge-dht/
 
-```
-diff test_DHTXXD.c orig/test_DHTXXD.c
-128c128
-<    printf("%d %.1f C %.1f %%\n", r.status, r.temperature, r.humidity);
----
->    printf("%d %.1f %.1f\n", r.status, r.temperature, r.humidity);
-158,160d157
-<    } else {
-< 	fprintf(stderr, "ERROR: pigpiod not running\n");
-< 	return 1;
-```
+cp /usr/local/lib/node_modules/node_modules/homebridge-dht/test_DHTXXD.patch .
 
-5. Compile with this command
+6. Then issue this command to patch test_DHTXXD.c
+
+patch < ../test_DHTXXD.patch
+
+7. Compile with this command
 
 ```
 gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
 ```
 
-6. Copy DHTXXD to /usr/local/bin/dht22, and make executable.
-7. Follow one of the numerous guides to wire up a DHT22 to a Raspberry PI.
-   Default GPIO pin to connect to is GPIO4
-8. Install homebridge-dht using: npm install -g homebridge-dht
-9. Create a file in /usr/local/bin/cputemp containing
+8. Copy DHTXXD to /usr/local/bin/dht22, and make executable.
+9. Follow one of the numerous guides to wire up a DHT22 to a Raspberry PI.
+   Default GPIO pin to connect to is GPIO4 
+10. Optional - Create a file in /usr/local/bin/cputemp containing
 
 ```
 #!/bin/bash
@@ -68,7 +61,7 @@ ie "cputemp": "/usr/local/bin/cputemp"
 ie "gpio": "4"
 
 
-# Configuration
+# Configuration - with cputemp
 
 ```
 {
@@ -81,22 +74,41 @@ ie "gpio": "4"
 
     "description": "HomeBridge Heyu Status Control",
 
-
  "platforms": [],
 
-	   "accessories": [
-	    { "accessory":          "Dht",
-	      "name":               "cputemp",
-	      "service":		"Temperature" },
-	    { "accessory":          "Dht",
+   "accessories": [
+	{ "accessory":        "Dht",
+	"name":               "cputemp",
+	"service":            "Temperature" },
+	{ "accessory":        "Dht",
         "name":               "Temp/Humidity Sensor",
         "service":            "dht22" }
 	]
-
-
 }
+```
+# Configuration - without cputemp
+```
+{
+    "bridge": {
+        "name": "Penny",
+        "username": "CC:22:3D:E3:CD:33",
+        "port": 51826,
+        "pin": "031-45-154"
+    },
 
-or with multiple DHT22's
+    "description": "HomeBridge Heyu Status Control",
+
+ "platforms": [],
+
+   "accessories": [
+	{ "accessory":        "Dht",
+        "name":               "Temp/Humidity Sensor",
+        "service":            "dht22" }
+	]
+}
+```
+# or with multiple DHT22's
+```
 { "accessory":   "Dht",
   "name":        "Temp/Humidity Sensor - Indoor",
   "gpio":        "4",       
