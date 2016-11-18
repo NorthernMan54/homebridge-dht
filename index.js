@@ -126,6 +126,10 @@ DhtAccessory.prototype = {
                 this.temperatureService = new Service.TemperatureSensor(this.name);
                 this.temperatureService
                     .getCharacteristic(Characteristic.CurrentTemperature)
+                    .setProps({
+                        minValue: -100,
+                        maxValue: 100
+                    })
                     .on('get', this.getTemperature.bind(this));
 
                 return [informationService, this.temperatureService];
@@ -133,6 +137,10 @@ DhtAccessory.prototype = {
                 this.service = new Service.TemperatureSensor(this.name);
                 this.service
                     .getCharacteristic(Characteristic.CurrentTemperature)
+                    .setProps({
+                        minValue: -100,
+                        maxValue: 100
+                    })
                     .on('get', this.getDHTTemperature.bind(this));
 
                 this.service
