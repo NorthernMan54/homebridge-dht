@@ -47,10 +47,12 @@ module.exports = function(homebridge) {
 
 function DhtAccessory(log, config) {
     this.log = log;
-
+    this.log("Adding Accessory");
     this.config = config;
     this.name = config.name;
-    this.service = config.service;
+    this.name_temperature = config.name_temperature || config.name;
+    this.name_humidity = config.name_humidity || config.name;
+    this.service = config.service || "dht22";
     this.gpio = config.gpio || "4";
 
     dhtExec = config.dhtExec || "dht22";
@@ -81,6 +83,8 @@ DhtAccessory.prototype = {
                     callback(new Error("dht22 read failed"));
                 } else {
                     this.service.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
+                    this.humidityService
+                        .setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     callback(null, temperature);
                 }
             }
@@ -134,7 +138,7 @@ DhtAccessory.prototype = {
 
                 return [informationService, this.temperatureService];
             case "dht22":
-                this.service = new Service.TemperatureSensor(this.name);
+                this.service = new Service.TemperatureSensor(this.name_temperature);
                 this.service
                     .getCharacteristic(Characteristic.CurrentTemperature)
                     .setProps({
@@ -146,8 +150,10 @@ DhtAccessory.prototype = {
                 this.service
                     .addCharacteristic(Characteristic.CurrentRelativeHumidity);
 
+                this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
-                return [informationService, this.service];
+
+                return [informationService, this.service,this.humidityService];
 
         }
     }

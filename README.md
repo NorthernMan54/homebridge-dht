@@ -4,6 +4,8 @@ Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity
 Sensor into hombridge via the pigpio library on a Raspberry PI.   I have tried
 numerous other interface methods for the DHT22, and found that this was least
 problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.
+This latest version splits the temperature and humidity into separate sensors, so
+they are readable from the home screen icon.
 
 Also support use of multiple DHT22's, see config.json fragment.
 
@@ -32,7 +34,7 @@ gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
 
 8. Copy DHTXXD to /usr/local/bin/dht22, and make executable.
 9. Follow one of the numerous guides to wire up a DHT22 to a Raspberry PI.
-   Default GPIO pin to connect to is GPIO4 
+   Default GPIO pin to connect to is GPIO4
 10. Optional - Create a file in /usr/local/bin/cputemp containing
 
 ```
@@ -49,17 +51,20 @@ echo $cpuTemp1" C"
 10. Update your configuration file. See sample-config.json in this repository for a sample.
 Optional parameters includes
 
-* dhtExec - Full command including path to read dht22 sensor.  Not needed
+* `dhtExec` - Full command including path to read dht22 sensor.  Not needed
 unless dht22 is installed in a location not on the path.  Defaults to dht22
 ie "dhtExec": "/usr/local/bin/dht22"
 
-* cputemp - Full command including path to read cpu temp sensor.  Not needed
+* `cputemp` - Full command including path to read cpu temp sensor.  Not needed
 unless cputemp is installed in a location not on the path.  Defaults to cputemp
 ie "cputemp": "/usr/local/bin/cputemp"
 
-* gpio - Gpio pin to read for dht22 sensor.  Defaults to 4
+* `gpio` - Gpio pin to read for dht22 sensor.  Defaults to 4
 ie "gpio": "4"
 
+* `name`: descriptive name
+* `name_temperature` (optional): descriptive name for the temperature sensor
+* `name_humidity` (optional): descriptive name for the humidity sensor
 
 # Configuration - with cputemp
 
@@ -119,8 +124,23 @@ ie "gpio": "4"
   "service":     "dht22" }
 
 ```
+# or with unique names for temperature and humidity
+
+```
+{
+    "accessory": "Dht",
+    "name": "dht22",
+    "name_temperature": "Temperature",
+    "name_humidity": "Humdity",
+    "service": "dht22"
+}
+```
 
 # ToDo
 
 Stop using the external program call, and call the pigpio library directly using
 npm module instead.
+
+# Credits
+
+rxseger - separate humidity sensor
