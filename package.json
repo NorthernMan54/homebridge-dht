@@ -1,6 +1,6 @@
 {
   "name": "homebridge-dht",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Homebridge accessory plugin that support's connecting a dht22 Temperature/Humidity Sensor to a Raspberry PI.",
   "main": "index.js",
   "scripts": {
