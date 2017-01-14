@@ -30,11 +30,13 @@ For detailed installation instructions, please see the instructable at http://ww
 
    "accessories": [
 	{ "accessory":        "Dht",
-	"name":               "cputemp",
-	"service":            "Temperature" },
+	 "name":               "cputemp",
+	  "service":            "Temperature" },
 	{ "accessory":        "Dht",
-        "name":               "Temp/Humidity Sensor",
-        "service":            "dht22" }
+          "name": "dht22",
+    	  "name_temperature": "Temperature",
+          "name_humidity": "Humdity",
+          "service":            "dht22" }
 	]
 }
 ```
@@ -62,12 +64,16 @@ For detailed installation instructions, please see the instructable at http://ww
 # or with multiple DHT22's
 ```
 { "accessory":   "Dht",
-  "name":        "Temp/Humidity Sensor - Indoor",
+  "name":        "dht22 - indoor",
+  "name_temperature": "Indoor Temperature",
+  "name_humidity": "Indoor Humdity",
   "gpio":        "4",       
   "service":     "dht22" },
 { "accessory":   "Dht",
-  "name":        "Temp/Humidity Sensor - Outdoor",
-  "gpio":        "5",   
+  "name":        "dht22 - outdoor",
+  "name_temperature": "Outdoor Temperature",
+  "name_humidity": "Outdoor Humdity",
+  "gpio":        "2",   
   "service":     "dht22" }
 
 ```
