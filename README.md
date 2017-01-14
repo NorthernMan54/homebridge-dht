@@ -24,19 +24,19 @@ For detailed installation instructions, please see the instructable at http://ww
         "pin": "031-45-154"
     },
 
-    "description": "HomeBridge Heyu Status Control",
+    "description": "HomeBridge DHT22",
 
  "platforms": [],
 
    "accessories": [
 	{ "accessory":        "Dht",
-	 "name":               "cputemp",
-	  "service":            "Temperature" },
+	  "name":             "cputemp",
+	  "service":          "Temperature" },
 	{ "accessory":        "Dht",
-          "name": "dht22",
+          "name":             "dht22",
     	  "name_temperature": "Temperature",
-          "name_humidity": "Humdity",
-          "service":            "dht22" }
+          "name_humidity":    "Humdity",
+          "service":          "dht22" }
 	]
 }
 ```
@@ -50,14 +50,16 @@ For detailed installation instructions, please see the instructable at http://ww
         "pin": "031-45-154"
     },
 
-    "description": "HomeBridge Heyu Status Control",
+    "description": "HomeBridge DHT22",
 
  "platforms": [],
 
    "accessories": [
 	{ "accessory":        "Dht",
-        "name":               "Temp/Humidity Sensor",
-        "service":            "dht22" }
+          "name":             "dht22",
+    	  "name_temperature": "Temperature",
+          "name_humidity":    "Humdity",
+          "service":          "dht22" }
 	]
 }
 ```
@@ -77,17 +79,7 @@ For detailed installation instructions, please see the instructable at http://ww
   "service":     "dht22" }
 
 ```
-# or with unique names for temperature and humidity
 
-```
-{
-    "accessory": "Dht",
-    "name": "dht22",
-    "name_temperature": "Temperature",
-    "name_humidity": "Humdity",
-    "service": "dht22"
-}
-```
 # Configuration Options
 
 Optional parameters includes
