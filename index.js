@@ -82,7 +82,7 @@ DhtAccessory.prototype = {
                     this.log.error("Error: dht22 read failed with status %s", result[0]);
                     callback(new Error("dht22 read failed"));
                 } else {
-                    this.service.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
+                //    this.service.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     this.humidityService
                         .setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     callback(null, temperature);
@@ -147,8 +147,7 @@ DhtAccessory.prototype = {
                     })
                     .on('get', this.getDHTTemperature.bind(this));
 
-                this.service
-                    .addCharacteristic(Characteristic.CurrentRelativeHumidity);
+               //this.service.addCharacteristic(Characteristic.CurrentRelativeHumidity);
 
                 this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
