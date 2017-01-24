@@ -117,5 +117,6 @@ npm module instead.
 
 # Credits
 
-rxseger - separate humidity sensor
-hector305 - Multiple sensor testing
+* rxseger - separate humidity sensor
+* hector305 - Multiple sensor testing
+* merdok - Removed duplicate humidity sensor.
