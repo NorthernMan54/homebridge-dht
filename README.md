@@ -1,5 +1,7 @@
 # homebridge-dht
 
+[![NPM Downloads](https://img.shields.io/npm/dm/homebridge-dht.svg?style=flat)](https://npmjs.org/package/homebridge-dht)
+
 Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity
 Sensor into hombridge via the pigpio library on a Raspberry PI.   I have tried
 numerous other interface methods for the DHT22, and found that this was least
