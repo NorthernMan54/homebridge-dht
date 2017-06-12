@@ -37,6 +37,8 @@
 var Service, Characteristic;
 var exec = require('child_process').execFile;
 var cputemp, dhtExec;
+var debug = require('debug')('DHT');
+var logger = require("mcuiot-logger").logger;
 
 module.exports = function(homebridge) {
     Service = homebridge.hap.Service;
@@ -58,6 +60,12 @@ function DhtAccessory(log, config) {
     dhtExec = config.dhtExec || "dht22";
     cputemp = config.cputemp || "cputemp";
 
+    this.spreadsheetId = config['spreadsheetId'];
+    if (this.spreadsheetId) {
+        this.logger = new logger(this.spreadsheetId);
+    }
+
+
 }
 
 DhtAccessory.prototype = {
@@ -73,16 +81,21 @@ DhtAccessory.prototype = {
                 var result = responseBody.toString().split(/[ \t]+/);
                 var temperature = parseFloat(result[1]);
                 var humidity = parseFloat(result[3]);
+
                 //                this.humidity = humidity;
                 this.log("Got status of %s", result[0]);
                 this.log("Got Temperature of %s", temperature);
                 this.log("Got humidity of %s", humidity);
 
+                if (this.spreadsheetId) {
+                    this.logger.storeDHT(this.name,result[0],temperature,humidity);
+                }
+
                 if (parseInt(result[0]) !== 0) {
                     this.log.error("Error: dht22 read failed with status %s", result[0]);
                     callback(new Error("dht22 read failed"));
                 } else {
-                //    this.service.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
+                    //    this.service.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     this.humidityService
                         .setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
                     callback(null, temperature);
@@ -147,12 +160,12 @@ DhtAccessory.prototype = {
                     })
                     .on('get', this.getDHTTemperature.bind(this));
 
-               //this.service.addCharacteristic(Characteristic.CurrentRelativeHumidity);
+                //this.service.addCharacteristic(Characteristic.CurrentRelativeHumidity);
 
                 this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
 
-                return [informationService, this.service,this.humidityService];
+                return [informationService, this.service, this.humidityService];
 
         }
     }
