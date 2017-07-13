@@ -56,6 +56,7 @@ function DhtAccessory(log, config) {
     this.name_humidity = config.name_humidity || config.name;
     this.service = config.service || "dht22";
     this.gpio = config.gpio || "4";
+    this.freq = config.freg || "60000";
 
     dhtExec = config.dhtExec || "dht22";
     cputemp = config.cputemp || "cputemp";
@@ -149,6 +150,14 @@ DhtAccessory.prototype = {
                     })
                     .on('get', this.getTemperature.bind(this));
 
+                setInterval(function(){
+                    this.getTemperature(function(err, temp){
+                        this.temperatureService
+                        .setCharacteristic(Characteristic.CurrentTemperature, temp);
+                    }.bind(this));
+
+                }.bind(this), this.freq);
+
                 return [informationService, this.temperatureService];
             case "dht22":
                 this.service = new Service.TemperatureSensor(this.name_temperature);
@@ -164,6 +173,15 @@ DhtAccessory.prototype = {
 
                 this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
+                this.log("call this getServices");
+
+                setInterval(function(){
+                    this.getDHTTemperature(function(err, temp){
+                        this.service
+                        .setCharacteristic(Characteristic.CurrentTemperature, temp);
+                    }.bind(this));
+
+                }.bind(this), this.freq);
 
                 return [informationService, this.service, this.humidityService];
 
