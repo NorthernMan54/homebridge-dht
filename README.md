@@ -97,6 +97,8 @@ ie "cputemp": "/usr/local/bin/cputemp"
 * `gpio` - Gpio pin to read for dht22 sensor.  Defaults to 4
 ie "gpio": "4"
 
+* `freq` - Frequency of push data. Defaults to 60000(1 minute)
+
 * `name`: descriptive name
 * `name_temperature` (optional): descriptive name for the temperature sensor
 * `name_humidity` (optional): descriptive name for the humidity sensor
@@ -163,3 +165,5 @@ e. Copy the code you're given, paste it into the command-line prompt, and press 
 * rxseger - separate humidity sensor
 * hector305 - Multiple sensor testing
 * merdok - Removed duplicate humidity sensor.
+
+
