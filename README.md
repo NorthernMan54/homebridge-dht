@@ -165,5 +165,4 @@ e. Copy the code you're given, paste it into the command-line prompt, and press 
 * rxseger - separate humidity sensor
 * hector305 - Multiple sensor testing
 * merdok - Removed duplicate humidity sensor.
-
-
+* tooodooo - Added device polling
