@@ -56,7 +56,7 @@ function DhtAccessory(log, config) {
     this.name_humidity = config.name_humidity || config.name;
     this.service = config.service || "dht22";
     this.gpio = config.gpio || "4";
-    this.freq = config.freq || "60000";
+    this.freq = config.freq || "3600000";  // Hourly
 
     dhtExec = config.dhtExec || "dht22";
     cputemp = config.cputemp || "cputemp";
