@@ -135,8 +135,8 @@ DhtAccessory.prototype = {
 
         informationService
             .setCharacteristic(Characteristic.Manufacturer, "AOSONG")
-            .setCharacteristic(Characteristic.Model, this.service)
-            .setCharacteristic(Characteristic.SerialNumber, this.device);
+            .setCharacteristic(Characteristic.Model, this.service);
+//            .setCharacteristic(Characteristic.SerialNumber, this.device);
 
         switch (this.service) {
 
