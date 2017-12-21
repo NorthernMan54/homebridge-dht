@@ -40,6 +40,8 @@ var cputemp, dhtExec;
 var debug = require('debug')('DHT');
 var logger = require("mcuiot-logger").logger;
 const moment = require('moment');
+var os = require("os");
+var hostname = os.hostname();
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
@@ -58,7 +60,7 @@ function DhtAccessory(log, config) {
   this.name_humidity = config.name_humidity || config.name;
   this.service = config.service || "dht22";
   this.gpio = config.gpio || "4";
-  this.freq = config.freq || "60000"; // Every minute
+  this.refresh = config.refresh || "60"; // Every minute
 
   dhtExec = config.dhtExec || "dht22";
   cputemp = config.cputemp || "cputemp";
@@ -148,7 +150,8 @@ DhtAccessory.prototype = {
 
     informationService
       .setCharacteristic(Characteristic.Manufacturer, "NorthernMan54")
-      .setCharacteristic(Characteristic.Model, this.service);
+      .setCharacteristic(Characteristic.Model, this.service)
+      .setCharacteristic(Characteristic.SerialNumber, hostname+"-"+hostname);
 
     switch (this.service) {
 
@@ -168,12 +171,12 @@ DhtAccessory.prototype = {
               .setCharacteristic(Characteristic.CurrentTemperature, temp);
           }.bind(this));
 
-        }.bind(this), this.freq);
+        }.bind(this), this.refresh * 1000);
 
         return [informationService, this.temperatureService];
       case "dht22":
-        this.service = new Service.TemperatureSensor(this.name_temperature);
-        this.service
+        this.dhtService = new Service.TemperatureSensor(this.name_temperature);
+        this.dhtService
           .getCharacteristic(Characteristic.CurrentTemperature)
           .setProps({
             minValue: -100,
@@ -185,22 +188,22 @@ DhtAccessory.prototype = {
 
         this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
-        informationService.log = this.log;
-        this.loggingService = new FakeGatoHistoryService("weather", informationService);
+        this.dhtService.log = this.log;
+        this.loggingService = new FakeGatoHistoryService("weather", this.dhtService);
 
         setInterval(function() {
           this.getDHTTemperature(function(err, temp) {
-            this.service
+            this.dhtService
               .setCharacteristic(Characteristic.CurrentTemperature, temp);
           }.bind(this));
 
-        }.bind(this), this.freq);
+        }.bind(this), this.refresh * 1000);
 
         this.getDHTTemperature(function(err, temp) {
-          this.service
+          this.dhtService
             .setCharacteristic(Characteristic.CurrentTemperature, temp);
         }.bind(this));
-        return [informationService, this.service, this.humidityService, this.loggingService];
+        return [this.dhtService, informationService, this.humidityService, this.loggingService];
 
     }
   }

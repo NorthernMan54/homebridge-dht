@@ -97,7 +97,7 @@ ie "cputemp": "/usr/local/bin/cputemp"
 * `gpio` - Gpio pin to read for dht22 sensor.  Defaults to 4
 ie "gpio": "4"
 
-* `freq` - Frequency of push data. Defaults to 3600000(1 hour)
+* `Refresh` - Frequency of data refresh. Defaults to 1 minute
 
 * `name`: descriptive name
 * `name_temperature` (optional): descriptive name for the temperature sensor

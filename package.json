@@ -24,7 +24,7 @@
     "debug": "^2.2.0",
     "mcuiot-logger": "^0.0.6",
     "moment": "^2.18.1",
-    "fakegato-history": "simont77/fakegato-history"
+    "fakegato-history": ">=0.3.2"
   },
   "author": "NorthernMan54",
   "license": "Apache-2.0",
