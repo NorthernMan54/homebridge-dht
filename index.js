@@ -11,6 +11,11 @@
 //    "accessory": "Dht",
 //    "name": "Temp/Humidity Sensor",
 //    "service": "dht22"
+//}, {        // For testing
+//    "accessory": "Dht",
+//    "name": "Temp/Humidity Sensor",
+//    "service": "dht22",
+//    "dhtExec": "Code/homebridge-dht/test/dht22"
 //}]
 //
 // or Multiple
@@ -100,22 +105,24 @@ DhtAccessory.prototype = {
           this.log_event_counter = 0;
         }
 
+        var err;
         if (parseInt(result[0]) !== 0) {
           this.log.error("Error: dht22 read failed with status %s", result[0]);
-          callback(new Error("dht22 read failed"));
+          err = new Error("dht22 read failed");
+          humidity = err;
         } else {
-          //    this.service.setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
-          this.humidityService
-            .setCharacteristic(Characteristic.CurrentRelativeHumidity, humidity);
-          if (!(this.log_event_counter % 10)) {
+          if (!(this.log_event_counter % 1)) {
             this.loggingService.addEntry({
               time: moment().unix(),
               temp: temperature,
               humidity: humidity
             });
           }
-          callback(null, temperature);
+
         }
+        this.humidityService
+          .getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(humidity);
+        callback(err, temperature);
       }
     }.bind(this));
   },
@@ -151,7 +158,8 @@ DhtAccessory.prototype = {
     informationService
       .setCharacteristic(Characteristic.Manufacturer, "NorthernMan54")
       .setCharacteristic(Characteristic.Model, this.service)
-      .setCharacteristic(Characteristic.SerialNumber, hostname+"-"+hostname);
+      .setCharacteristic(Characteristic.SerialNumber, hostname+"-"+this.name)
+      .setCharacteristic(Characteristic.FirmwareRevision, require('./package.json').version);
 
     switch (this.service) {
 
@@ -167,8 +175,10 @@ DhtAccessory.prototype = {
 
         setInterval(function() {
           this.getTemperature(function(err, temp) {
+            if (err)
+              temp = err;
             this.temperatureService
-              .setCharacteristic(Characteristic.CurrentTemperature, temp);
+              .getCharacteristic(Characteristic.CurrentTemperature).updateValue(temp);
           }.bind(this));
 
         }.bind(this), this.refresh * 1000);
@@ -193,8 +203,10 @@ DhtAccessory.prototype = {
 
         setInterval(function() {
           this.getDHTTemperature(function(err, temp) {
+            if (err)
+              temp = err;
             this.dhtService
-              .setCharacteristic(Characteristic.CurrentTemperature, temp);
+              .getCharacteristic(Characteristic.CurrentTemperature).updateValue(temp);
           }.bind(this));
 
         }.bind(this), this.refresh * 1000);

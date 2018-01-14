@@ -21,10 +21,10 @@
     "homebridge": ">=0.2.0"
   },
   "dependencies": {
-    "debug": "^2.2.0",
-    "mcuiot-logger": "^0.0.6",
-    "moment": "^2.18.1",
-    "fakegato-history": ">=0.3.2"
+    "debug": "^2.6.9",
+    "fakegato-history": ">=0.3.2",
+    "mcuiot-logger": "0.0.6",
+    "moment": "^2.20.1"
   },
   "author": "NorthernMan54",
   "license": "Apache-2.0",
