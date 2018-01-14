@@ -13,7 +13,7 @@
 //    "service": "dht22"
 //}, {        // For testing
 //    "accessory": "Dht",
-//    "name": "Temp/Humidity Sensor",
+//    "name": "Test-DHT",
 //    "service": "dht22",
 //    "dhtExec": "Code/homebridge-dht/test/dht22"
 //}]
