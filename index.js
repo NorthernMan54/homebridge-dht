@@ -199,7 +199,7 @@ DhtAccessory.prototype = {
         this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
         this.dhtService.log = this.log;
-        this.loggingService = new FakeGatoHistoryService("weather", this.dhtService);
+        this.loggingService = new FakeGatoHistoryService("weather", this.dhtService,4032,this.refresh * 10/60);
 
         setInterval(function() {
           this.getDHTTemperature(function(err, temp) {
