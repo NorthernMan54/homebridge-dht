@@ -7,7 +7,7 @@ Sensor into hombridge via the pigpio library on a Raspberry PI.   I have tried
 numerous other interface methods for the DHT22, and found that this was least
 problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.
 This latest version splits the temperature and humidity into separate sensors, so
-they are readable from the home screen icon.  Also support for the history function of the Eve app is supported.
+they are readable from the home screen icon.  Historical display of temperature data is available via HomeKit apps thats support graphing.
 
 Also support use of multiple DHT22's, see config.json fragment.
 
