@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "debug": "^2.6.9",
-    "fakegato-history": ">0.3.5",
+    "fakegato-history": "^0.3.5",
     "mcuiot-logger": "0.0.6",
     "moment": "^2.20.1"
   },
