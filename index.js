@@ -111,13 +111,12 @@ DhtAccessory.prototype = {
           err = new Error("dht22 read failed");
           humidity = err;
         } else {
-          if (!(this.log_event_counter % 1)) {
+
             this.loggingService.addEntry({
               time: moment().unix(),
               temp: temperature,
               humidity: humidity
             });
-          }
 
         }
         this.humidityService
