@@ -112,11 +112,11 @@ DhtAccessory.prototype = {
           humidity = err;
         } else {
 
-            this.loggingService.addEntry({
-              time: moment().unix(),
-              temp: temperature,
-              humidity: humidity
-            });
+          this.loggingService.addEntry({
+            time: moment().unix(),
+            temp: temperature,
+            humidity: humidity
+          });
 
         }
         this.humidityService
@@ -157,7 +157,7 @@ DhtAccessory.prototype = {
     informationService
       .setCharacteristic(Characteristic.Manufacturer, "NorthernMan54")
       .setCharacteristic(Characteristic.Model, this.service)
-      .setCharacteristic(Characteristic.SerialNumber, hostname+"-"+this.name)
+      .setCharacteristic(Characteristic.SerialNumber, hostname + "-" + this.name)
       .setCharacteristic(Characteristic.FirmwareRevision, require('./package.json').version);
 
     switch (this.service) {
@@ -198,7 +198,12 @@ DhtAccessory.prototype = {
         this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
         this.dhtService.log = this.log;
-        this.loggingService = new FakeGatoHistoryService("weather", this.dhtService,4032,this.refresh * 10/60);
+//        this.loggingService = new FakeGatoHistoryService("weather", this.dhtService, 4032, this.refresh * 10 / 60);
+
+        this.loggingService = new FakeGatoHistoryService("weather", this.dhtService, {
+          storage: 'googleDrive',
+          minutes: 1
+        });
 
         setInterval(function() {
           this.getDHTTemperature(function(err, temp) {
