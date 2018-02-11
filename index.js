@@ -55,7 +55,6 @@ module.exports = function(homebridge) {
   homebridge.registerAccessory("homebridge-dht", "Dht", DhtAccessory);
 }
 
-
 function DhtAccessory(log, config) {
   this.log = log;
   this.log("Adding Accessory");
@@ -66,6 +65,7 @@ function DhtAccessory(log, config) {
   this.service = config.service || "dht22";
   this.gpio = config.gpio || "4";
   this.refresh = config.refresh || "60"; // Every minute
+  this.storage = config['storage'] || "fs";
 
   dhtExec = config.dhtExec || "dht22";
   cputemp = config.cputemp || "cputemp";
@@ -191,18 +191,13 @@ DhtAccessory.prototype = {
             minValue: -100,
             maxValue: 100
           });
-        //                  .on('get', this.getDHTTemperature.bind(this));
-
-        //this.service.addCharacteristic(Characteristic.CurrentRelativeHumidity);
 
         this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
         this.dhtService.log = this.log;
-//        this.loggingService = new FakeGatoHistoryService("weather", this.dhtService, 4032, this.refresh * 10 / 60);
-
         this.loggingService = new FakeGatoHistoryService("weather", this.dhtService, {
-          storage: 'googleDrive',
-          minutes: 1
+          storage: this.storage,
+          minutes: this.refresh * 10 / 60
         });
 
         setInterval(function() {

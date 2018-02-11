@@ -1,6 +1,6 @@
 {
   "name": "homebridge-dht",
-  "version": "0.1.18",
+  "version": "0.1.20",
   "description": "Homebridge accessory plugin that support's connecting a dht22 Temperature/Humidity Sensor to a Raspberry PI.",
   "main": "index.js",
   "scripts": {
@@ -19,10 +19,10 @@
   "engines": {
     "node": ">=0.12.0",
     "homebridge": ">=0.2.0"
-  },
+  }, 
   "dependencies": {
     "debug": "^2.6.9",
-    "fakegato-history": "simont77/fakegato-history#fakegato-storage",
+    "fakegato-history": "^=0.4.0",
     "mcuiot-logger": "0.0.6",
     "moment": "^2.20.1"
   },
