@@ -102,6 +102,7 @@ ie "gpio": "4"
 * `name`: descriptive name
 * `name_temperature` (optional): descriptive name for the temperature sensor
 * `name_humidity` (optional): descriptive name for the humidity sensor
+* `storage` - Storage of chart graphing data for history graphing, either fs or googleDrive, defaults to fs
 * `spreadsheetId` ( optional ): Log data to a google sheet, this is part of the URL of your spreadsheet.  ie the spreadsheet ID in the URL https://docs.google.com/spreadsheets/d/abc1234567/edit#gid=0 is "abc1234567".
 
 # Optional cputemp script - install in /usr/local/bin
