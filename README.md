@@ -121,7 +121,7 @@ echo $cpuTemp1" C"
 Stop using the external program call, and call the pigpio library directly using
 npm module instead.
 
-# Optional - Enable access to Google Sheets to log data
+# Optional - Enable access to Google to log data and store history charting data
 
 This presumes you already have a google account, and have access to google drive/sheets already
 

@@ -191,15 +191,10 @@ DhtAccessory.prototype = {
             minValue: -100,
             maxValue: 100
           });
-        //                  .on('get', this.getDHTTemperature.bind(this));
-
-        //this.service.addCharacteristic(Characteristic.CurrentRelativeHumidity);
 
         this.humidityService = new Service.HumiditySensor(this.name_humidity);
 
         this.dhtService.log = this.log;
-        //        this.loggingService = new FakeGatoHistoryService("weather", this.dhtService, 4032, this.refresh * 10 / 60);
-
         this.loggingService = new FakeGatoHistoryService("weather", this.dhtService, {
           storage: this.storage,
           minutes: this.refresh * 10 / 60
