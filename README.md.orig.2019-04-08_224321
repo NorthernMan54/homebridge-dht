@@ -15,7 +15,7 @@ Also support use of multiple DHT22's, see config.json fragment.
 
 # Installation
 
-For detailed installation instructions, please see the [build instructions](docs/Build.md)
+For detailed installation instructions, please see the [build instructions](Build.md)
 
 1 - Prior to installation of this plugin, the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library needs to be installed.  Detailed installation instructions are part way down the page
 
