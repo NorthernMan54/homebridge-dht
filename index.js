@@ -102,7 +102,7 @@ DhtAccessory.prototype = {
         this.log.error("Error:", err);
         callback(err);
       }
-    });
+    }.bind(this));
   },
 
   getTemperature: function(callback) {
