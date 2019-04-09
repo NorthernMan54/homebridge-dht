@@ -1,0 +1,13 @@
+   * [homebridge-dht](#homebridge-dht)
+   * [Installation](#installation)
+   * [Configuration - with RPI cpu temperature sensor, requires cputemp program ( Optional )](#configuration---with-rpi-cpu-temperature-sensor-requires-cputemp-program--optional-)
+   * [Configuration - without cputemp](#configuration---without-cputemp)
+   * [or with multiple DHT22's](#or-with-multiple-dht22s)
+   * [Configuration Options](#configuration-options)
+   * [Optional cputemp script - install in /usr/local/bin](#optional-cputemp-script---install-in-usrlocalbin)
+   * [ToDo](#todo)
+   * [Optional - Enable access to Google to log data and store history charting data](#optional---enable-access-to-google-to-log-data-and-store-history-charting-data)
+   * [Credits](#credits)
+
+<!-- Added by: sgracey, at:  -->
+
