@@ -24,7 +24,8 @@
     "debug": "^2.6.9",
     "fakegato-history": "^=0.4.0",
     "mcuiot-logger": "0.0.6",
-    "moment": "^2.20.1"
+    "moment": "^2.20.1",
+    "node-dht-sensor": "^=0.0.34"
   },
   "author": "NorthernMan54",
   "license": "Apache-2.0",

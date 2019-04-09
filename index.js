@@ -3,47 +3,45 @@
 
 // Uses pigpio library to access gpio pin, and a custom program dht22 read the sensor.
 
-//"accessories": [{
+// "accessories": [{
 //    "accessory": "Dht",
 //    "name": "cputemp",
 //    "service": "Temperature"
-//}, {
+// }, {
 //    "accessory": "Dht",
 //    "name": "Temp/Humidity Sensor",
 //    "service": "dht22"
-//}, {        // For testing
+// }, {        // For testing
 //    "accessory": "Dht",
 //    "name": "Test-DHT",
 //    "service": "dht22",
 //    "dhtExec": "Code/homebridge-dht/test/dht22"
-//}]
+// }]
 //
 // or Multiple
 //
-//"accessories": [{
+// "accessories": [{
 //    "accessory": "Dht",
 //    "name": "cputemp",
 //    "service": "Temperature"
-//}, {
+// }, {
 //    "accessory": "Dht",
 //    "name": "Temp/Humidity Sensor - Indoor",
 //    "service": "dht22",
 //    "gpio": "4"
-//}, {
+// }, {
 //    "accessory": "Dht",
 //    "name": "Temp/Humidity Sensor - Outdoor",
 //    "service": "dht22",
 //    "gpio": "5"
-//}]
-
-
-
+// }]
 
 var Service, Characteristic, FakeGatoHistoryService;
+var sensor = require('node-dht-sensor');
 var exec = require('child_process').execFile;
 var cputemp, dhtExec;
 var debug = require('debug')('DHT');
-var logger = require("mcuiot-logger").logger;
+var Logger = require("mcuiot-logger").logger;
 const moment = require('moment');
 var os = require("os");
 var hostname = os.hostname();
@@ -53,7 +51,7 @@ module.exports = function(homebridge) {
   Characteristic = homebridge.hap.Characteristic;
   FakeGatoHistoryService = require('fakegato-history')(homebridge);
   homebridge.registerAccessory("homebridge-dht", "Dht", DhtAccessory);
-}
+};
 
 function DhtAccessory(log, config) {
   this.log = log;
@@ -67,63 +65,44 @@ function DhtAccessory(log, config) {
   this.refresh = config.refresh || "60"; // Every minute
   this.storage = config['storage'] || "fs";
 
-  dhtExec = config.dhtExec || "dht22";
+  // dhtExec = config.dhtExec || "dht22";
   cputemp = config.cputemp || "cputemp";
 
   this.log_event_counter = 59;
   this.spreadsheetId = config['spreadsheetId'];
   if (this.spreadsheetId) {
-    this.logger = new logger(this.spreadsheetId);
+    this.logger = new Logger(this.spreadsheetId);
   }
-
-
 }
 
 DhtAccessory.prototype = {
 
   getDHTTemperature: function(callback) {
-    exec(dhtExec, ['-g', this.gpio], function(error, responseBody, stderr) {
-      if (error !== null) {
-        this.log('dhtExec function failed: ' + error);
-        callback(error);
-      } else {
-        // dht22 output format - gives a 3 in the first column when it has troubles
-        // 0 24.8 C 50.3 %
-        var result = responseBody.toString().split(/[ \t]+/);
-        var temperature = parseFloat(result[1]);
-        var humidity = parseFloat(result[3]);
-
-        //                this.humidity = humidity;
-        this.log("DHT Status: %s, Temperature: %s, Humidity: %s", result[0], temperature, humidity);
-
-
+    sensor.read(22, this.gpio, function(err, temperature, humidity) {
+      if (!err) {
+        this.log("DHT Status: %s, Temperature: %s°C, Humidity: %s%", 0, temperature.toFixed(1), humidity.toFixed(1));
         this.log_event_counter = this.log_event_counter + 1;
         if (this.log_event_counter > 59) {
           if (this.spreadsheetId) {
-            this.logger.storeDHT(this.name, result[0], temperature, humidity);
+            this.logger.storeDHT(this.name, 0, temperature.toFixed(1), humidity.toFixed(1));
           }
           this.log_event_counter = 0;
         }
 
-        var err;
-        if (parseInt(result[0]) !== 0) {
-          this.log.error("Error: dht22 read failed with status %s", result[0]);
-          err = new Error("dht22 read failed");
-          humidity = err;
-        } else {
+        this.loggingService.addEntry({
+          time: moment().unix(),
+          temp: temperature.toFixed(1),
+          humidity: humidity.toFixed(1)
+        });
 
-          this.loggingService.addEntry({
-            time: moment().unix(),
-            temp: temperature,
-            humidity: humidity
-          });
-
-        }
         this.humidityService
-          .getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(humidity);
-        callback(err, temperature);
+          .getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(humidity.toFixed(1));
+        callback(err, temperature.toFixed(1));
+      } else {
+        this.log.error("Error:", err);
+        callback(err);
       }
-    }.bind(this));
+    });
   },
 
   getTemperature: function(callback) {
@@ -140,14 +119,12 @@ DhtAccessory.prototype = {
     }.bind(this));
   },
 
-
   identify: function(callback) {
     this.log("Identify requested!");
     callback(); // success
   },
 
   getServices: function() {
-
     this.log("INIT: %s", this.name);
 
     // you can OPTIONALLY create an information service if you wish to override
@@ -161,7 +138,6 @@ DhtAccessory.prototype = {
       .setCharacteristic(Characteristic.FirmwareRevision, require('./package.json').version);
 
     switch (this.service) {
-
       case "Temperature":
         this.temperatureService = new Service.TemperatureSensor(this.name);
         this.temperatureService
@@ -174,12 +150,12 @@ DhtAccessory.prototype = {
 
         setInterval(function() {
           this.getTemperature(function(err, temp) {
-            if (err)
+            if (err) {
               temp = err;
+            }
             this.temperatureService
               .getCharacteristic(Characteristic.CurrentTemperature).updateValue(temp);
           }.bind(this));
-
         }.bind(this), this.refresh * 1000);
 
         return [informationService, this.temperatureService];
@@ -202,12 +178,12 @@ DhtAccessory.prototype = {
 
         setInterval(function() {
           this.getDHTTemperature(function(err, temp) {
-            if (err)
+            if (err) {
               temp = err;
+            }
             this.dhtService
               .getCharacteristic(Characteristic.CurrentTemperature).updateValue(temp);
           }.bind(this));
-
         }.bind(this), this.refresh * 1000);
 
         this.getDHTTemperature(function(err, temp) {
@@ -215,7 +191,6 @@ DhtAccessory.prototype = {
             .setCharacteristic(Characteristic.CurrentTemperature, temp);
         }.bind(this));
         return [this.dhtService, informationService, this.humidityService, this.loggingService];
-
     }
   }
 };

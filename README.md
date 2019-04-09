@@ -3,7 +3,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/homebridge-dht.svg?style=flat)](https://npmjs.org/package/homebridge-dht)
 
 Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity
-Sensor into hombridge via the pigpio library on a Raspberry PI.   I have tried
+Sensor into hombridge via the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library on a Raspberry PI.   I have tried
 numerous other interface methods for the DHT22, and found that this was least
 problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.
 This latest version splits the temperature and humidity into separate sensors, so
@@ -13,7 +13,14 @@ Also support use of multiple DHT22's, see config.json fragment.
 
 # Installation
 
-For detailed installation instructions, please see the instructable at http://www.instructables.com/id/RPIHomeBridge-TemperatureHumidity-Sensor/
+For detailed installation instructions, please see the instructable at This is out of date -> http://www.instructables.com/id/RPIHomeBridge-TemperatureHumidity-Sensor/
+
+1 - Prior to installation of this plugin, the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library needs to be installed.  Detailed installation instructions are part way down the page
+
+2 - Installing the plugin
+
+sudo npm install -g homebridge-dht
+
 
 # Configuration - with RPI cpu temperature sensor, requires cputemp program ( Optional )
 
@@ -85,10 +92,6 @@ For detailed installation instructions, please see the instructable at http://ww
 # Configuration Options
 
 Optional parameters includes
-
-* `dhtExec` - Full command including path to read dht22 sensor.  Not needed
-unless dht22 is installed in a location not on the path.  Defaults to dht22
-ie "dhtExec": "/usr/local/bin/dht22"
 
 * `cputemp` - Full command including path to read cpu temp sensor.  Not needed
 unless cputemp is installed in a location not on the path.  Defaults to cputemp
