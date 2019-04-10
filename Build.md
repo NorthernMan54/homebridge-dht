@@ -29,7 +29,7 @@ Update December 2016 - After running these for a few months, I have found that t
 So I went to my local parts store, and purchased
 
 ```
-1 - DHT22 / AM2303 Temperature / Humidity Sensor
+1 - DHT22 / AM2302 Temperature / Humidity Sensor
 1 - 4.7K Resistor
 4 Pin Female header ( Sensor side )
 5 Pin Female header ( RPI Side )
