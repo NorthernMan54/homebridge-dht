@@ -19,6 +19,11 @@ For detailed installation instructions, please see the [build instructions](Buil
 
 1 - Prior to installation of this plugin, the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library needs to be installed.  Detailed installation instructions are part way down the page
 
+If you run homebridge as non-root user - add it to GPIO group: (in case in logs: bcm2835_init: Unable to open /dev/gpiomem: Permission denied)
+```
+sudo adduser homebridge gpio
+```
+
 2 - Installing the plugin
 
 ```
