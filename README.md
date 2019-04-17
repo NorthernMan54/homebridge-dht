@@ -2,12 +2,7 @@
 
 [![NPM Downloads](https://img.shields.io/npm/dm/homebridge-dht.svg?style=flat)](https://npmjs.org/package/homebridge-dht)
 
-Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity
-Sensor into hombridge via the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library on a Raspberry PI.   I have tried
-numerous other interface methods for the DHT22, and found that this was least
-problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.
-This latest version splits the temperature and humidity into separate sensors, so
-they are readable from the home screen icon.  Historical display of temperature data is available via HomeKit apps thats support graphing.
+Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity Sensor into hombridge via the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library on a Raspberry PI.   I have tried numerous other interface methods for the DHT22, and found that this was least problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.  This latest version splits the temperature and humidity into separate sensors, so they are readable from the home screen icon.  Historical display of temperature data is available via HomeKit apps thats support graphing.
 
 ![Homebridge Nodes](docs/FRKDW3MIXQFYWMT.LARGE.jpg)
 
