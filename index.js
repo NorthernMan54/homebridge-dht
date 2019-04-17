@@ -39,8 +39,8 @@
 var Service, Characteristic, FakeGatoHistoryService;
 var sensor = require('node-dht-sensor');
 var exec = require('child_process').execFile;
-var cputemp, dhtExec;
-var debug = require('debug')('DHT');
+var cputemp;
+// var debug = require('debug')('DHT');
 var Logger = require("mcuiot-logger").logger;
 const moment = require('moment');
 var os = require("os");
@@ -80,24 +80,24 @@ DhtAccessory.prototype = {
   getDHTTemperature: function(callback) {
     sensor.read(22, this.gpio, function(err, temperature, humidity) {
       if (!err) {
-        this.log("DHT Status: %s, Temperature: %s°C, Humidity: %s%", 0, temperature.toFixed(1), humidity.toFixed(1));
+        this.log("DHT Status: %s, Temperature: %s°C, Humidity: %s%", 0, roundInt(temperature), roundInt(humidity));
         this.log_event_counter = this.log_event_counter + 1;
         if (this.log_event_counter > 59) {
           if (this.spreadsheetId) {
-            this.logger.storeDHT(this.name, 0, temperature.toFixed(1), humidity.toFixed(1));
+            this.logger.storeDHT(this.name, 0, roundInt(temperature), roundInt(humidity));
           }
           this.log_event_counter = 0;
         }
 
         this.loggingService.addEntry({
           time: moment().unix(),
-          temp: temperature.toFixed(1),
-          humidity: humidity.toFixed(1)
+          temp: roundInt(temperature),
+          humidity: roundInt(humidity)
         });
 
         this.humidityService
-          .getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(humidity.toFixed(1));
-        callback(err, temperature.toFixed(1));
+          .getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(roundInt(humidity));
+        callback(err, roundInt(temperature));
       } else {
         this.log.error("Error:", err);
         callback(err);
@@ -194,3 +194,7 @@ DhtAccessory.prototype = {
     }
   }
 };
+
+function roundInt(string) {
+  return Math.round(parseFloat(string) * 10) / 10;
+}
