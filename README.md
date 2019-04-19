@@ -8,7 +8,26 @@ Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity Sen
 
 Also support use of multiple DHT22's, see config.json fragment.
 
+<!--ts-->
+   * [homebridge-dht](#homebridge-dht)
+   * [Installation](#installation)
+      * [Detailed build instructions](#detailed-build-instructions)
+   * [Configuration - with RPI cpu temperature sensor, requires cputemp program ( Optional )](#configuration---with-rpi-cpu-temperature-sensor-requires-cputemp-program--optional-)
+   * [Configuration - without cputemp](#configuration---without-cputemp)
+   * [or with multiple DHT22's](#or-with-multiple-dht22s)
+   * [Configuration Options](#configuration-options)
+   * [Optional cputemp script - install in /usr/local/bin](#optional-cputemp-script---install-in-usrlocalbin)
+   * [ToDo](#todo)
+   * [Optional - Enable access to Google to log data and store history charting data](#optional---enable-access-to-google-to-log-data-and-store-history-charting-data)
+   * [Credits](#credits)
+
+<!-- Added by: sgracey, at:  -->
+
+<!--te-->
+
 # Installation
+
+## Detailed build instructions
 
 For detailed installation instructions, please see the [build instructions](Build.md)
 

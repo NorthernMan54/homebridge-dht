@@ -13,8 +13,8 @@ Update December 2016 - After running these for a few months, I have found that t
    * [Step 3: Sensor End of the Cable](#step-3-sensor-end-of-the-cable)
    * [Step 4: Connecting the Cables](#step-4-connecting-the-cables)
    * [Step 5: Installing the Homebridge Software](#step-5-installing-the-homebridge-software)
-   * [Step 6: Install Homebridge-dht](#step-6-install-homebridge-dht)
-   * [Step 7: Installing BCM2835 Library](#step-7-installing-bcm2835-library)
+   * [Step 6: Installing BCM2835 Library](#step-6-installing-bcm2835-library)
+   * [Step 7: Install Homebridge-dht](#step-7-install-homebridge-dht)
    * [Step 8: Raspberry PI CPU Temperature Monitoring - Optional](#step-8-raspberry-pi-cpu-temperature-monitoring---optional)
    * [Step 9: Start Homebridge](#step-9-start-homebridge)
    * [Step 10: Testing With Home Kit](#step-10-testing-with-home-kit)
@@ -97,12 +97,55 @@ After putting the heat shrink on, I couldn't see the wire colour anymore, so I m
 
 As their are a lot of other guides for setting up a raspberry pi, I'm not going to repeat this here, but am assuming that you have your RPI setup with Raspbian Jessie, with Node.JS installed and homebridge running. Their are a number of homebridge getting started guides around covering this already.
 
-# Step 6: Install Homebridge-dht
+
+# Step 6: Installing BCM2835 Library
+
+1. Go to this website and download the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) package.
+
+2. Install the package with these instructions.
+
+```
+# download the latest version of the library, say bcm2835-1.xx.tar.gz, then:
+wget bcm2835-1.xx.tar.gz
+tar zxvf bcm2835-1.xx.tar.gz
+cd bcm2835-1.xx
+./configure
+make
+sudo make check
+sudo make install
+```
+
+3. Add permissions to access GPIO
+
+If you run homebridge as non-root user - add it to GPIO group: (in case in logs: bcm2835_init: Unable to open /dev/gpiomem: Permission denied)
+```
+sudo adduser homebridge gpio
+```
+
+# Step 7: Install Homebridge-dht
 
 1. Install homebridge-dht with the command
 
 ```
 sudo npm install -g homebridge-dht
+```
+
+If during installation you receive this error
+
+```
+CXX(target) Release/obj.target/node_dht_sensor/dht-sensor.o SOLINK_MODULE(target)
+Release/obj.target/node_dht_sensor.node /usr/bin/ld: /usr/local/lib/libbcm2835.a(bcm2835.o): relocation R_X86_64_PC32 against symbolbcm2835_peripherals' can not be used when making a shared object; recompile with -fPIC
+/usr/bin/ld: final link failed: nonrepresentable section on output
+collect2: error: ld returned 1 exit status
+```
+
+Please go back to step 6.2 and add -fPIC flags to the configure line
+
+```
+./configure CFLAGS=-fPIC CXXFLAGS=-fPIC
+make
+make check
+make install
 ```
 
 2. Update your config.json file in ~/.homebridge with the following
@@ -127,23 +170,6 @@ sudo npm install -g homebridge-dht
 	"service": "dht22" }
 
 ]}
-```
-
-# Step 7: Installing BCM2835 Library
-
-1. Go to this website and download the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) package.
-
-2. Install the package with these instructions.
-
-```
-# download the latest version of the library, say bcm2835-1.xx.tar.gz, then:
-wget bcm2835-1.xx.tar.gz
-tar zxvf bcm2835-1.xx.tar.gz
-cd bcm2835-1.xx
-./configure
-make
-sudo make check
-sudo make install
 ```
 
 # Step 8: Raspberry PI CPU Temperature Monitoring - Optional

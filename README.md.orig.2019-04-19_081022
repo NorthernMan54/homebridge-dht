@@ -2,18 +2,31 @@
 
 [![NPM Downloads](https://img.shields.io/npm/dm/homebridge-dht.svg?style=flat)](https://npmjs.org/package/homebridge-dht)
 
-Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity
-Sensor into hombridge via the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library on a Raspberry PI.   I have tried
-numerous other interface methods for the DHT22, and found that this was least
-problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.
-This latest version splits the temperature and humidity into separate sensors, so
-they are readable from the home screen icon.  Historical display of temperature data is available via HomeKit apps thats support graphing.
+Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity Sensor into hombridge via the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library on a Raspberry PI.   I have tried numerous other interface methods for the DHT22, and found that this was least problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.  This latest version splits the temperature and humidity into separate sensors, so they are readable from the home screen icon.  Historical display of temperature data is available via HomeKit apps thats support graphing.
 
 ![Homebridge Nodes](docs/FRKDW3MIXQFYWMT.LARGE.jpg)
 
 Also support use of multiple DHT22's, see config.json fragment.
 
+<!--ts-->
+   * [homebridge-dht](#homebridge-dht)
+   * [Installation](#installation)
+   * [Configuration - with RPI cpu temperature sensor, requires cputemp program ( Optional )](#configuration---with-rpi-cpu-temperature-sensor-requires-cputemp-program--optional-)
+   * [Configuration - without cputemp](#configuration---without-cputemp)
+   * [or with multiple DHT22's](#or-with-multiple-dht22s)
+   * [Configuration Options](#configuration-options)
+   * [Optional cputemp script - install in /usr/local/bin](#optional-cputemp-script---install-in-usrlocalbin)
+   * [ToDo](#todo)
+   * [Optional - Enable access to Google to log data and store history charting data](#optional---enable-access-to-google-to-log-data-and-store-history-charting-data)
+   * [Credits](#credits)
+
+<!-- Added by: sgracey, at:  -->
+
+<!--te-->
+
 # Installation
+
+## Detailed build instructions
 
 For detailed installation instructions, please see the [build instructions](Build.md)
 
