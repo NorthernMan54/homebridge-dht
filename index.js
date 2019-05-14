@@ -65,7 +65,7 @@ function DhtAccessory(log, config) {
   this.refresh = config.refresh || "60"; // Every minute
   this.storage = config['storage'] || "fs";
 
-  this.type = parseInt(this.service);
+  this.type = parseInt(this.service.replace(/\D/g, ""));
 
   // dhtExec = config.dhtExec || "dht22";
   cputemp = config.cputemp || "cputemp";
