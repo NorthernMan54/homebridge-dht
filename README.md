@@ -10,12 +10,16 @@ Also support use of multiple DHT22's, see config.json fragment.
 
 <!--ts-->
    * [homebridge-dht](#homebridge-dht)
-   * [Installation](#installation)
-      * [Detailed build instructions](#detailed-build-instructions)
-   * [Configuration - with RPI cpu temperature sensor, requires cputemp program ( Optional )](#configuration---with-rpi-cpu-temperature-sensor-requires-cputemp-program--optional-)
-   * [Configuration - without cputemp](#configuration---without-cputemp)
-   * [or with multiple DHT22's](#or-with-multiple-dht22s)
-   * [Configuration Options](#configuration-options)
+   * [1 - Detailed hardware build instructions](#1---detailed-hardware-build-instructions)
+   * [2 - Install and configure required libraries](#2---install-and-configure-required-libraries)
+   * [3 - Installing the plugin](#3---installing-the-plugin)
+   * [4 - Configure the Plugin](#4---configure-the-plugin)
+      * [Required Configuration options](#required-configuration-options)
+      * [Optional Configuration Options](#optional-configuration-options)
+   * [config.json Samples](#configjson-samples)
+      * [Configuration - with RPI cpu temperature sensor, requires cputemp program ( Optional )](#configuration---with-rpi-cpu-temperature-sensor-requires-cputemp-program--optional-)
+      * [Configuration - without cputemp](#configuration---without-cputemp)
+      * [or with multiple DHT22's](#or-with-multiple-dht22s)
    * [Optional cputemp script - install in /usr/local/bin](#optional-cputemp-script---install-in-usrlocalbin)
    * [ToDo](#todo)
    * [Optional - Enable access to Google to log data and store history charting data](#optional---enable-access-to-google-to-log-data-and-store-history-charting-data)
@@ -25,26 +29,75 @@ Also support use of multiple DHT22's, see config.json fragment.
 
 <!--te-->
 
-# Installation
+# 1 - Detailed hardware build instructions
 
-## Detailed build instructions
+For detailed hardware installation instructions, please see the [build instructions](Build.md)
 
-For detailed installation instructions, please see the [build instructions](Build.md)
+# 2 - Install and configure required libraries
 
-1 - Prior to installation of this plugin, the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library needs to be installed.  Detailed installation instructions are part way down the page
+Prior to installation of this plugin, the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library needs to be installed.  Detailed installation instructions are part way down the page
 
 If you run homebridge as non-root user - add it to GPIO group: (in case in logs: bcm2835_init: Unable to open /dev/gpiomem: Permission denied)
 ```
 sudo adduser homebridge gpio
 ```
 
-2 - Installing the plugin
+# 3 - Installing the plugin
 
 ```
 sudo npm install -g homebridge-dht
 ```
 
-# Configuration - with RPI cpu temperature sensor, requires cputemp program ( Optional )
+# 4 - Configure the Plugin
+
+A minimal config.json looks like This
+
+```
+{
+  "bridge": {
+    "name": "Penny",
+    "username": "CC:22:3D:E3:CD:33",
+    "port": 51826,
+    "pin": "031-45-154"
+    },
+
+    "description": "HomeBridge DHT22",
+
+  "platforms": [],
+
+  "accessories": [
+  	{ "accessory": "Dht",
+      "name":      "Outside"
+     }
+	]
+}
+```
+
+## Required Configuration options
+
+* `accessory`: must be Dht
+* `name`:      descriptive name for the temperature sensor
+
+## Optional Configuration Options
+
+* `service`:   Dht22 or Temperature.  Dht22 reads local dht22 sensor, Temperature reads cputemp. Defaults to Dht22
+* `cputemp` - Full command including path to read cpu temp sensor.  Not needed unless cputemp is installed in a location not on the path.  Defaults to cputemp
+```
+ie "cputemp": "/usr/local/bin/cputemp"
+```
+* `gpio` - Gpio pin to read for dht22 sensor.  Defaults to 4
+```
+ie "gpio": "4"
+```
+* `Refresh` - Frequency of data refresh in seconds. Defaults to 60 seconds
+* `name_temperature` - descriptive name for the temperature sensor
+* `name_humidity` - descriptive name for the humidity sensor
+* `storage` - Storage of chart graphing data for history graphing, either fs or googleDrive, defaults to fs
+* `spreadsheetId` - Log data to a google sheet, this is part of the URL of your spreadsheet.  ie the spreadsheet ID in the URL https://docs.google.com/spreadsheets/d/abc1234567/edit#gid=0 is "abc1234567".
+
+# config.json Samples
+
+## Configuration - with RPI cpu temperature sensor, requires cputemp program ( Optional )
 
 ```
 {
@@ -71,7 +124,7 @@ sudo npm install -g homebridge-dht
 	]
 }
 ```
-# Configuration - without cputemp
+## Configuration - without cputemp
 ```
 {
     "bridge": {
@@ -94,7 +147,7 @@ sudo npm install -g homebridge-dht
 	]
 }
 ```
-# or with multiple DHT22's
+## or with multiple DHT22's
 ```
 { "accessory":   "Dht",
   "name":        "dht22 - indoor",
@@ -110,25 +163,6 @@ sudo npm install -g homebridge-dht
   "service":     "dht22" }
 
 ```
-
-# Configuration Options
-
-Optional parameters includes
-
-* `cputemp` - Full command including path to read cpu temp sensor.  Not needed
-unless cputemp is installed in a location not on the path.  Defaults to cputemp
-ie "cputemp": "/usr/local/bin/cputemp"
-
-* `gpio` - Gpio pin to read for dht22 sensor.  Defaults to 4
-ie "gpio": "4"
-
-* `Refresh` - Frequency of data refresh. Defaults to 1 minute
-
-* `name`: descriptive name
-* `name_temperature` (optional): descriptive name for the temperature sensor
-* `name_humidity` (optional): descriptive name for the humidity sensor
-* `storage` - Storage of chart graphing data for history graphing, either fs or googleDrive, defaults to fs
-* `spreadsheetId` ( optional ): Log data to a google sheet, this is part of the URL of your spreadsheet.  ie the spreadsheet ID in the URL https://docs.google.com/spreadsheets/d/abc1234567/edit#gid=0 is "abc1234567".
 
 # Optional cputemp script - install in /usr/local/bin
 ```
