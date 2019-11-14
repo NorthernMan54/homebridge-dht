@@ -1,4 +1,3 @@
-# homebridge-dht
 
 [![NPM Downloads](https://img.shields.io/npm/dm/homebridge-dht.svg?style=flat)](https://npmjs.org/package/homebridge-dht)
 
@@ -9,8 +8,7 @@ Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity Sen
 Also support use of multiple DHT22's, see config.json fragment.
 
 <!--ts-->
-   * [homebridge-dht](#homebridge-dht)
-   * [1 - Detailed hardware build instructions](#1---detailed-hardware-build-instructions)
+   * [1 - Detailed  build instructions](#1---detailed--build-instructions)
    * [2 - Install and configure required libraries](#2---install-and-configure-required-libraries)
    * [3 - Installing the plugin](#3---installing-the-plugin)
    * [4 - Configure the Plugin](#4---configure-the-plugin)
@@ -29,9 +27,9 @@ Also support use of multiple DHT22's, see config.json fragment.
 
 <!--te-->
 
-# 1 - Detailed hardware build instructions
+# 1 - Detailed  build instructions
 
-For detailed hardware installation instructions, please see the [build instructions](Build.md)
+For detailed installation instructions, please see the [build instructions](Build.md)
 
 # 2 - Install and configure required libraries
 
@@ -50,7 +48,7 @@ sudo npm install -g homebridge-dht
 
 # 4 - Configure the Plugin
 
-A minimal config.json looks like This
+A minimal config.json looks like this
 
 ```
 {
@@ -83,11 +81,11 @@ A minimal config.json looks like This
 * `service`:   Dht22 or Temperature.  Dht22 reads local dht22 sensor, Temperature reads cputemp. Defaults to Dht22
 * `cputemp` - Full command including path to read cpu temp sensor.  Not needed unless cputemp is installed in a location not on the path.  Defaults to cputemp
 ```
-ie "cputemp": "/usr/local/bin/cputemp"
+"cputemp": "/usr/local/bin/cputemp"
 ```
 * `gpio` - Gpio pin to read for dht22 sensor.  Defaults to 4
 ```
-ie "gpio": "4"
+"gpio": "4"
 ```
 * `Refresh` - Frequency of data refresh in seconds. Defaults to 60 seconds
 * `name_temperature` - descriptive name for the temperature sensor
