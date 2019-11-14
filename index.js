@@ -58,8 +58,6 @@ function DhtAccessory(log, config) {
   this.log("Adding Accessory");
   this.config = config;
   this.name = config.name;
-  this.name_temperature = config.name_temperature || config.name;
-  this.name_humidity = config.name_humidity || config.name;
   this.service = config.service || "dht22";
   this.gpio = config.gpio || "4";
   this.refresh = config.refresh || "60"; // Every minute
@@ -97,7 +95,7 @@ DhtAccessory.prototype = {
           humidity: roundInt(humidity)
         });
 
-        this.humidityService
+        this.dhtService
           .getCharacteristic(Characteristic.CurrentRelativeHumidity).updateValue(roundInt(humidity));
         callback(err, roundInt(temperature));
       } else {
@@ -162,7 +160,7 @@ DhtAccessory.prototype = {
 
         return [informationService, this.temperatureService];
       case "dht22":
-        this.dhtService = new Service.TemperatureSensor(this.name_temperature);
+        this.dhtService = new Service.TemperatureSensor(this.name);
         this.dhtService
           .getCharacteristic(Characteristic.CurrentTemperature)
           .setProps({
@@ -170,7 +168,8 @@ DhtAccessory.prototype = {
             maxValue: 100
           });
 
-        this.humidityService = new Service.HumiditySensor(this.name_humidity);
+        this.dhtService
+          .addCharacteristic(Characteristic.CurrentRelativeHumidity);
 
         this.dhtService.log = this.log;
         this.loggingService = new FakeGatoHistoryService("weather", this.dhtService, {
@@ -192,7 +191,7 @@ DhtAccessory.prototype = {
           this.dhtService
             .setCharacteristic(Characteristic.CurrentTemperature, temp);
         }.bind(this));
-        return [this.dhtService, informationService, this.humidityService, this.loggingService];
+        return [this.dhtService, informationService, this.loggingService];
     }
   }
 };
