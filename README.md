@@ -3,7 +3,7 @@
 
 Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity Sensor into hombridge via the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library on a Raspberry PI.   I have tried numerous other interface methods for the DHT22, and found that this was least problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.  This latest version splits the temperature and humidity into separate sensors, so they are readable from the home screen icon.  Historical display of temperature data is available via HomeKit apps thats support graphing.
 
-![Homebridge Nodes](docs/FRKDW3MIXQFYWMT.LARGE.jpg)
+![Homebridge Nodes](https://user-images.githubusercontent.com/19808920/69387902-4970a180-0c95-11ea-938c-74878a14079e.PNG)
 
 Also support use of multiple DHT22's, see config.json fragment.
 
