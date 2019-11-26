@@ -3,7 +3,7 @@
 
 Supports integration of a DHT11/DHT21/DHT22/DHT33/DHT44 Temperature/Humidity Sensor into hombridge via the [BCM2835](http://www.airspayce.com/mikem/bcm2835/) library on a Raspberry PI.   I have tried numerous other interface methods for the DHT22, and found that this was least problematic.  Also includes optional reporting of the RaspBerry PI CPU Temperature.  This latest version splits the temperature and humidity into separate sensors, so they are readable from the home screen icon.  Historical display of temperature data is available via HomeKit apps thats support graphing.
 
-![Homebridge Nodes](docs/FRKDW3MIXQFYWMT.LARGE.jpg)
+![Homebridge Nodes](https://user-images.githubusercontent.com/19808920/69387902-4970a180-0c95-11ea-938c-74878a14079e.PNG)
 
 Also support use of multiple DHT22's, see config.json fragment.
 
@@ -78,12 +78,12 @@ A minimal config.json looks like this
 
 ## Optional Configuration Options
 
-* `service`:   Dht22 or Temperature.  Dht22 reads local dht22 sensor, Temperature reads cputemp. Defaults to Dht22
+* `service`:   dht22, dht11 or Temperature.  dht22/dht11 reads local dht sensor, Temperature reads cputemp. Defaults to dht22
 * `cputemp` - Full command including path to read cpu temp sensor.  Not needed unless cputemp is installed in a location not on the path.  Defaults to cputemp
 ```
 "cputemp": "/usr/local/bin/cputemp"
 ```
-* `gpio` - Gpio pin to read for dht22 sensor.  Defaults to 4
+* `gpio` - Gpio pin to read for dht sensor.  Defaults to 4
 ```
 "gpio": "4"
 ```

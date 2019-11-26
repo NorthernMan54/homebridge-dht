@@ -78,12 +78,12 @@ A minimal config.json looks like this
 
 ## Optional Configuration Options
 
-* `service`:   Dht22 or Temperature.  Dht22 reads local dht22 sensor, Temperature reads cputemp. Defaults to Dht22
+* `service`:   dht22, dht11 or Temperature.  dht22/dht11 reads local dht sensor, Temperature reads cputemp. Defaults to dht22
 * `cputemp` - Full command including path to read cpu temp sensor.  Not needed unless cputemp is installed in a location not on the path.  Defaults to cputemp
 ```
 "cputemp": "/usr/local/bin/cputemp"
 ```
-* `gpio` - Gpio pin to read for dht22 sensor.  Defaults to 4
+* `gpio` - Gpio pin to read for dht sensor.  Defaults to 4
 ```
 "gpio": "4"
 ```

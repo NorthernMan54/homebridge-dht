@@ -160,6 +160,7 @@ DhtAccessory.prototype = {
 
         return [informationService, this.temperatureService];
       case "dht22":
+      case "dht11":
         this.dhtService = new Service.TemperatureSensor(this.name);
         this.dhtService
           .getCharacteristic(Characteristic.CurrentTemperature)
