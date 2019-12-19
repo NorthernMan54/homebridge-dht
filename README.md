@@ -156,6 +156,7 @@ A minimal config.json looks like this
 ```
 
 # Optional cputemp script - install in /usr/local/bin
+
 ```
 #!/bin/bash
 cpuTemp0=$(cat /sys/class/thermal/thermal_zone0/temp)
@@ -164,8 +165,15 @@ cpuTemp2=$(($cpuTemp0/100))
 cpuTempM=$(($cpuTemp2 % $cpuTemp1))
 
 echo $cpuTemp1" C"
-#echo GPU $(/opt/vc/bin/vcgencmd measure_temp)
 ```
+
+Output from the cputemp command
+
+```
+cputemp
+42 C
+```
+
 # ToDo
 
 # Optional - Enable access to Google to log data and store history charting data
