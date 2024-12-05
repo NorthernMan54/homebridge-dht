@@ -7,9 +7,20 @@ I was looking for a low cost temperature / humidity sensor I could use to monito
 Update December 2016 - After running these for a few months, I have found that the accuracy of the humidity sensor varies greatly over time and have stopped trusting these for reasonably accurate humidty information. And am changing all my devices over to the Bosch BME280 Temperature/Humidity/Barometric Pressure sensor. So I have created a new instructable showing how to connect this sensor to the RaspberryPI ( Connect Your RaspberryPI to the BME280 Temperature and NodeMCU/ESP8266 ( Homebridge-MCUIOT ).
 
 <!--ts-->
+   * [homebridge-dht build](#homebridge-dht-build)
+   * [Step 1: Parts List](#step-1-parts-list)
+   * [Step 2: Prepare the RPI End of the Cable](#step-2-prepare-the-rpi-end-of-the-cable)
+   * [Step 3: Sensor End of the Cable](#step-3-sensor-end-of-the-cable)
+   * [Step 4: Connecting the Cables](#step-4-connecting-the-cables)
+   * [Step 5: Installing the Homebridge Software](#step-5-installing-the-homebridge-software)
+   * [Step 6: Installing BCM2835 Library](#step-6-installing-bcm2835-library)
+   * [Step 7: Install Homebridge-dht](#step-7-install-homebridge-dht)
+   * [Step 8: Raspberry PI CPU Temperature Monitoring - Optional](#step-8-raspberry-pi-cpu-temperature-monitoring---optional)
+   * [Step 9: Start Homebridge](#step-9-start-homebridge)
+   * [Step 10: Testing With Home Kit](#step-10-testing-with-home-kit)
+   * [Step 11: Bonus Chapter - Dual Sensors](#step-11-bonus-chapter---dual-sensors)
 
-
-<!-- Added by: runner, at: 2024-12-05T19:06+00:00 -->
+<!-- Added by: sgracey, at:  -->
 
 <!--te-->
 
