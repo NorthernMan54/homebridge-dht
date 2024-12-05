@@ -1,0 +1,38 @@
+{
+  "bridge": {
+    "name": "Heisenberg",
+    "username": "AA:BB:CC:DD:FF:FF",
+    "port": 51826,
+    "pin": "031-45-154"
+  },
+  "description": "HomeBridge HTTP Status Control",
+  "plugins": [
+    "homebridge-yamaha-zone-tv",
+    "homebridge-config-ui-x"
+  ],
+  "platforms": [
+    {
+      "name": "Config",
+      "port": 8581,
+      "auth": "none",
+      "theme": "auto",
+      "tempUnits": "c",
+      "lang": "auto",
+      "sudo": false,
+      "platform": "config",
+      "debug": false
+    }
+  ],
+  "accessories": [
+    {
+      "accessory": "Dht",
+      "name": "cputemp",
+      "service": "Temperature"
+    },
+    {
+      "accessory": "Dht",
+      "name": "Temp Humidity Sensor",
+      "service": "dht22"
+    }
+  ]
+}
