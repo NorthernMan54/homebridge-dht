@@ -4,3 +4,8 @@ publish.sh
 README.md.orig.*
 README.md.toc.*
 tools/*
+
+Build.md.*
+gh-md-toc
+
+test/*
