@@ -37,3 +37,5 @@ node_modules
 
 
 gh-md-toc
+README.md.*
+Build.md.*
