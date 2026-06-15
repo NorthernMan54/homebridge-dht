@@ -33,12 +33,12 @@
     "node-dht-sensor": ">0.0.34"
   },
   "devDependencies": {
-    "@eslint/js": "^9.14.0",
-    "eslint": "^8.57.1",
-    "eslint-plugin-format": "^0.1.2",
-    "eslint-plugin-jest": "^28.8.3",
-    "globals": "^15.12.0",
-    "jest": "^29.7.0",
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-format": "^2.0.1",
+    "eslint-plugin-jest": "^29.15.2",
+    "globals": "^17.6.0",
+    "jest": "^30.4.2",
     "nodemon": "^3.1.7"
   },
   "author": "NorthernMan54",
