@@ -107,7 +107,7 @@ jobs:
       dynamically_adjust_version: true
       npm_version_command: 'pre'
       pre_id: ${{ needs.get_tags.outputs.TARGET_IMAGE_TAG }}
-      install_cmd: npm ci
+      install_cmd: npm ci --omit=dev
 
   publish_github_release:
     needs: [publish_prod_release]
