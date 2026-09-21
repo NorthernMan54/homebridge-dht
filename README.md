@@ -24,7 +24,7 @@ Also support use of multiple DHT22's, see config.json fragment.
 * [Credits](#credits)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
-<!-- Added by: runner, at: Mon Jun 15 15:39:29 UTC 2026 -->
+<!-- Added by: runner, at: Mon Sep 21 15:37:51 UTC 2026 -->
 
 <!--te-->
 
