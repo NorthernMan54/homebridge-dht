@@ -1,14 +1,14 @@
 name: "Build, Publish and Release"
 
- 
- #
- # Automatically publish beta releases on pushes, require a manual workflow action for production releases
- #
- # Does the following
- # 1 - Run the documentation script against the package
- # 2 - Create the npm package using the package.json version tag ( or for beta releases, adds a beta tag and increments as needed )
- # 3 - Publish the npm package
- # 4 - For releases against the main branch, create a github release as well
+#
+# Automatically publish beta releases on pushes, require a manual workflow action for production releases
+#
+# Does the following
+# 1 - Run the documentation script against the package
+# 2 - Recreate the production package-lock.json on Linux
+# 3 - Create the npm package using the package.json version tag ( or for beta releases, adds a beta tag and increments as needed )
+# 4 - Publish the npm package
+# 5 - For releases against the main branch, create a github release as well
 
 on:
   push:
@@ -54,8 +54,8 @@ jobs:
     # checkout repo
     - uses: actions/checkout@v7
       with:
-        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+        persist-credentials: false
+        fetch-depth: 0
 
     - uses: actions/setup-node@v7
       with:
@@ -70,6 +70,11 @@ jobs:
       run: |
         npm run-script document --if-present
         rm gh-md-toc
+
+    - name: Recreate package-lock.json
+      run: |
+        rm -f package-lock.json
+        npm install --package-lock-only --omit=dev
 
     - name: Commit files
       run: |
