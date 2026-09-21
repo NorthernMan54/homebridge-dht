@@ -89,6 +89,7 @@ A minimal config.json looks like this
 "gpio": "4"
 ```
 * `refresh` - Frequency of data refresh in seconds. Defaults to 60 seconds
+  With `service: "Temperature"`, the sensor is read immediately at startup and then on this interval; HomeKit requests between polls use the cached temperature.
 * `storage` - Storage of chart graphing data for history graphing, either fs or googleDrive, defaults to fs
 * `spreadsheetId` - Log data to a google sheet, this is part of the URL of your spreadsheet.  ie the spreadsheet ID in the URL https://docs.google.com/spreadsheets/d/abc1234567/edit#gid=0 is "abc1234567".
 

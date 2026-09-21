@@ -114,18 +114,19 @@ class DhtAccessory {
 
     this.temperatureService
       .getCharacteristic(Characteristic.CurrentTemperature)
-      .setProps({ minValue: -100, maxValue: 100 })
-      .on('get', this.getCPUTemperature.bind(this));
+      .setProps({ minValue: -100, maxValue: 100 });
 
-    setInterval(() => {
+    // HomeKit reads use the characteristic cache; only this poll runs cputemp.
+    const refreshTemperature = () => {
       this.getCPUTemperature((err, temp) => {
-        if (!err) {
-          this.temperatureService
-            .getCharacteristic(Characteristic.CurrentTemperature)
-            .updateValue(temp);
-        }
+        this.temperatureService
+          .getCharacteristic(Characteristic.CurrentTemperature)
+          .updateValue(err || temp);
       });
-    }, this.refresh * 1000);
+    };
+
+    refreshTemperature();
+    setInterval(refreshTemperature, this.refresh * 1000);
 
     return this.temperatureService;
   }
