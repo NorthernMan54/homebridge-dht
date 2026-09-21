@@ -1,6 +1,6 @@
 {
   "name": "homebridge-dht",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Homebridge accessory plugin that support's connecting a dht22 Temperature/Humidity Sensor to a Raspberry PI.",
   "main": "src/index.js",
   "scripts": {
@@ -28,6 +28,7 @@
   "dependencies": {
     "debug": ">2.6.9",
     "fakegato-history": "^0.6.5",
+    "fsevents": "^2.3.3",
     "mcuiot-logger": ">0.0.6",
     "moment": ">2.20.1",
     "node-dht-sensor": ">0.0.34"
@@ -75,5 +76,11 @@
       "!src/lib/definitions/generator-configuration.ts",
       "!src/test-utils"
     ]
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "node-dht-sensor@0.5.4": true,
+    "unrs-resolver@1.12.2": true,
+    "fsevents@2.3.3": true
   }
 }
