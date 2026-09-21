@@ -78,9 +78,9 @@
     ]
   },
   "allowScripts": {
-    "@parcel/watcher@2.6.0": true,
-    "node-dht-sensor@0.5.4": true,
-    "unrs-resolver@1.12.2": true,
-    "fsevents@2.3.3": true
+    "@parcel/watcher": true,
+    "node-dht-sensor": true,
+    "unrs-resolver": true,
+    "fsevents": true
   }
 }
