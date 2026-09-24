@@ -26,9 +26,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "debug": ">2.6.9",
     "fakegato-history": "^0.6.5",
-    "fsevents": "^2.3.3",
     "mcuiot-logger": ">0.0.6",
     "moment": ">2.20.1",
     "node-dht-sensor": ">0.0.34"
